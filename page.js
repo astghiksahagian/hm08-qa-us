@@ -6,11 +6,32 @@ module.exports = {
     codeField: '#code',
     // Buttons
     callATaxiButton: 'button=Call a taxi',
+    supportivePlanButton: 'div=Supportive',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
+    paymentMethod: '.pp-text',
+    paymentMethodModal: '.modal', //use twice to add payment method and verify payment method
+    addCard: 'div=Add card',
+    addingACardModal: '.modal.unusual',
+    cardNumber: '#number',
+    cardNumberCode: '#code',
+    link: 'button=Link',
+    card1: '#card-1', 
+    messageToDriver: '#comment',
+    blanketAndHandkerchiefsToggleButton: '.slider.round',
+    blanketAndHandkerchiefs: '.switch-input',
+    counterValue: '.counter-value',
+    counterPlus: '.counter-plus',
+
+    enterTheNumberAndOrder: '.smart-button',
+    carSearchAndDriverInfoModal: '.order-header-title',
+    driverIcon: '.order-button',
+
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
     // Modals
     phoneNumberModal: '.modal',
+
+
     // Functions
     fillAddresses: async function(from, to) {
         const fromField = await $(this.fromField);
@@ -49,3 +70,4 @@ module.exports = {
         await $(this.confirmButton).click()
     },
 };
+
