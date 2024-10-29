@@ -8,6 +8,9 @@ describe('Create an order', () => {
         const supportivePlanButton = await $(page.supportivePlanButton);
         await supportivePlanButton.waitForDisplayed();
         await supportivePlanButton.click();
+        const parentTcard = await supportivePlanButton.parentElement();
+        console.log(parentTcard)
+        await expect(parentTcard).toHaveAttributeContaining('class', 'tcard active');
     })
 
     it('should open phone number modal', async () => {
@@ -31,21 +34,13 @@ describe('Create an order', () => {
     it('should open payment method modal', async () => {
         await browser.url(`/`);
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        const paymentMethod = await $(page.paymentMethod);
-        await paymentMethod.waitForDisplayed();
-        await paymentMethod.click();
-        const modal = await $$(page.paymentMethodModal);
-        const paymentMethodModal = modal[1];
-        await paymentMethodModal.waitForDisplayed();
-        const addCard = await $(page.addCard);
-        await addCard.waitForDisplayed();
-        await addCard.click();
-        const addingACardModal = await $(page.addingACardModal);
-        await addingACardModal.waitForDisplayed();
-        await expect(addingACardModal).toBeExisting();
+        await page.openPaymentMethodModal();
     })
 
     it('should add and save credit card information', async () => {
+        await browser.url(`/`);
+        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        await page.openPaymentMethodModal();
         const cardNumber = await $(page.cardNumber);
         await cardNumber.waitForDisplayed();
         await cardNumber.setValue(helper.getCardNumber());
@@ -70,6 +65,7 @@ describe('Create an order', () => {
         const messageToDriver = await $(page.messageToDriver);
         await messageToDriver.waitForDisplayed();
         await messageToDriver.setValue("Thank you for the ride!")
+        await expect(messageToDriver).toHaveValue("Thank you for the ride!");
     })
 
     it('should select blanket and handkerchiefs', async () => {

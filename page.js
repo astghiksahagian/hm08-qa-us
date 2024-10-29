@@ -4,6 +4,7 @@ module.exports = {
     toField: '#to',
     phoneNumberField: '#phone',
     codeField: '#code',
+
     // Buttons
     callATaxiButton: 'button=Call a taxi',
     supportivePlanButton: 'div=Supportive',
@@ -21,13 +22,12 @@ module.exports = {
     blanketAndHandkerchiefs: '.switch-input',
     counterValue: '.counter-value',
     counterPlus: '.counter-plus',
-
     enterTheNumberAndOrder: '.smart-button',
     carSearchAndDriverInfoModal: '.order-header-title',
     driverIcon: '.order-button',
-
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
+    
     // Modals
     phoneNumberModal: '.modal',
 
@@ -69,5 +69,21 @@ module.exports = {
         await codeField.setValue(code)
         await $(this.confirmButton).click()
     },
+    openPaymentMethodModal: async function() {
+        await browser.url(`/`);
+        await this.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        const paymentMethod = await $(this.paymentMethod);
+        await paymentMethod.waitForDisplayed();
+        await paymentMethod.click();
+        const modal = await $$(this.paymentMethodModal);
+        const paymentMethodModal = modal[1];
+        await paymentMethodModal.waitForDisplayed();
+        const addCard = await $(this.addCard);
+        await addCard.waitForDisplayed();
+        await addCard.click();
+        const addingACardModal = await $(this.addingACardModal);
+        await addingACardModal.waitForDisplayed();
+        await expect(addingACardModal).toBeExisting();
+    }
 };
 
